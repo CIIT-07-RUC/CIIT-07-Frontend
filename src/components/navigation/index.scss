@@ -1,0 +1,14 @@
+.navbar{
+	.search__inner{
+		> form {
+			> input{
+				max-width: 500px;
+			}
+		}
+		flex: 3;
+
+	}
+	.navbar-nav-scroll{
+		flex: 1;
+	}
+}

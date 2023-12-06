@@ -1,11 +1,10 @@
 import './App.css';
+import { IndexPage } from './pages/IndexPage';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-       
-      </header>
+      <IndexPage/>
     </div>
   );
 }
