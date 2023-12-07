@@ -1,45 +1,36 @@
 import Carousel from 'react-bootstrap/Carousel';
 import img1 from '../../assets/images/movie2.jpeg';
+import './index.scss';
 
 export function CCarousel (props) {
+
+	const items = props.items.items.img.map((img, index) => ({
+		img: props.items.items.img[index],
+		title: props.items.items.title[index],
+		description: props.items.items.description[index],
+	  }));
+
 	return(
 		<>
-			<Carousel data-bs-theme="dark">
-				<Carousel.Item>
-					<img
-					className="d-block w-100"
-					src={img1}
-					alt="First slide"
-					/>
-					<Carousel.Caption>
-					<h5></h5>
-					<p></p>
-					</Carousel.Caption>
-				</Carousel.Item>
-				<Carousel.Item>
-					<img
-					className="d-block w-100"
-					src={img1}
-					alt="Second slide"
-					/>
-					<Carousel.Caption>
-					<h5></h5>
-					<p></p>
-					</Carousel.Caption>
-				</Carousel.Item>
-				<Carousel.Item>
-					<img
-					className="d-block w-100"
-					src={img1}
-					alt="Third slide"
-					/>
-					<Carousel.Caption>
-					<h5></h5>
-					<p>
-					</p>
-					</Carousel.Caption>
-				</Carousel.Item>
-				</Carousel>
+			<Carousel className='carousel__component' data-bs-theme="dark">
+				<h2 className='carousel__title'>{ props.title }</h2>
+				{
+					(items).map((item, index) => (
+
+						<Carousel.Item className='carousel__item'>
+							<img
+							className="carousel__item--image"
+							src={item.img}
+							alt="First slide"
+							/>
+							<Carousel.Caption>
+							<h5>{item.title}</h5>
+							<p>{item.description}</p>
+							</Carousel.Caption>
+						</Carousel.Item>
+					))
+				}
+			</Carousel>
 		</>
 	)
 }
