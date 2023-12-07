@@ -10,9 +10,25 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import { Login } from '../login/Login';
 
 export function NavigationBar(props) {
   const [show, setShow] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+
+  const closeModal = () => {
+    setShowLogin(false);
+    setShowRegister(false);
+  };
+  const login = () => {
+    setShowLogin(true);
+    setShowRegister(false);
+  };
+  const register = () => {
+    setShowRegister(true);
+    setShowLogin(false);
+  };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -26,7 +42,7 @@ export function NavigationBar(props) {
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
           <Row className="navigation__content--wrapper align-items-center justify-content-between d-flex w-100">
-          
+
             <Row className="search__inner w-100 px-5">
               <Form className="d-flex">
                 <Form.Control
@@ -38,24 +54,20 @@ export function NavigationBar(props) {
                 <Button variant="outline-success">Search</Button>
               </Form>
             </Row>
-            
+
             <Nav
             className="w-100 justify-content-end align-items-center"
             navbarScroll
             >
               <div className='d-flex flex-row flex-row w-100'>
-              <Nav.Link  href="#action2">Sing In</Nav.Link>
-              <Nav.Link  href="#action2">Sing Up</Nav.Link>
+              <Nav.Link onClick={login}>Sign In</Nav.Link>
+              <Nav.Link onClick={register}>Sign Up</Nav.Link>
               </div>
               <div>
               <Nav.Link  className='w-100' href="">
                 <List variant="primary" onClick={handleShow} size={30}/>
               </Nav.Link>
               </div>
-             
-          
-              
-
             </Nav>
           </Row>
           </Navbar.Collapse>
@@ -78,6 +90,7 @@ export function NavigationBar(props) {
         </Nav>
         </Offcanvas.Body>
       </Offcanvas>
+      <Login showLogin={showLogin} showRegister={showRegister} login={login} register={register} closeModal={closeModal} />
     </>
 	);
 }
