@@ -1,7 +1,6 @@
 import './index.scss';
 
 import { useState } from 'react';
-import { Row, Paragraph } from 'react-bootstrap';
 import { List, Bookmark, Gear } from 'react-bootstrap-icons';
 
 import Button from 'react-bootstrap/Button';
@@ -11,6 +10,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Login } from '../login/Login';
+import { Link } from "react-router-dom";
 
 export function NavigationBar(props) {
   const [show, setShow] = useState(false);
@@ -79,14 +79,14 @@ export function NavigationBar(props) {
         </Offcanvas.Header>
         <Offcanvas.Body>
         <Nav className="flex-column">
-          <Nav.Link  href="#Account">
+          <Link to="/account">
             <Gear />
             <span style={{marginLeft: '10px' }}> Account </span>
-          </Nav.Link>
-          <Nav.Link href="#Bookmark">
+          </Link>
+          <Link to="/bookmarks" href="#Bookmark">
             <Bookmark/>
             <span style={{marginLeft: '10px' }}> Bookmark </span>
-          </Nav.Link>
+          </Link>
         </Nav>
         </Offcanvas.Body>
       </Offcanvas>
