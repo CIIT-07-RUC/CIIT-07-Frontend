@@ -41,9 +41,9 @@ export function NavigationBar(props) {
           <Navbar.Brand href="#">ImdbCheapClone</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
-          <Row className="navigation__content--wrapper align-items-center justify-content-between d-flex w-100">
+          <div className="navigation__content--wrapper align-items-center justify-content-between d-flex w-100">
 
-            <Row className="search__inner w-100 px-5">
+            <div className="search__inner w-100 px-5 d-none d-md-block">
               <Form className="d-flex">
                 <Form.Control
                   type="search"
@@ -53,13 +53,13 @@ export function NavigationBar(props) {
                 />
                 <Button variant="outline-success">Search</Button>
               </Form>
-            </Row>
+            </div>
 
             <Nav
             className="w-100 justify-content-end align-items-center"
             navbarScroll
             >
-              <div className='d-flex flex-row flex-row w-100'>
+              <div className='d-flex flex-row flex-row w-100 d-none d-md-flex'>
               <Nav.Link onClick={login}>Sign In</Nav.Link>
               <Nav.Link onClick={register}>Sign Up</Nav.Link>
               </div>
@@ -69,7 +69,7 @@ export function NavigationBar(props) {
               </Nav.Link>
               </div>
             </Nav>
-          </Row>
+          </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>

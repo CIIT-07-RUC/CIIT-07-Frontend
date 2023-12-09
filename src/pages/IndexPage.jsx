@@ -8,15 +8,15 @@ import img2 from '../assets/images/movie1.webp';
 export function IndexPage() {
 	const mockedMovieObj = {
 		items: {
-			img: [img1, img2, img1],
+			img: [img2, img1, img1],
 			title: ["Title 1", "Title 2", "Title 3"],
 			description: ["Lorem ipsum dolor sit amet1", "Lorem ipsum dolor sit amet2", "Lorem ipsum dolor sit amet3"]
 		}
-	
 	}
+	
+
 	return (
 	  <div className="">
-			<NavigationBar offCanvasPlacement="end" />
 			<Container>
 				<Row style={{margin: '50px 0'}}>
 					<Col><CCarousel items={mockedMovieObj} title="Fresh movies" /></Col>
