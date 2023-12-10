@@ -4,6 +4,7 @@ import { Row, Container, Col   } from 'react-bootstrap';
 import MovieList from '../components/movieList/MovieList';
 import { Footer } from '../components/footer/Footer';
 import img1 from '../assets/images/movie2.jpeg';
+import { NavigationMain } from '../components/navigation/NavigationMain';
 
 export function CastPage(props) {
 	const mockedMovies = [
@@ -15,7 +16,7 @@ export function CastPage(props) {
 
 	return(
 		<>
-			<NavigationBar/>
+			<NavigationMain offCanvasPlacement="end" />
 			<div className="cast__page pb-5">
 				<Container>
 

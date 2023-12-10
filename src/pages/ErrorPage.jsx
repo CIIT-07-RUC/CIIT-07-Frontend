@@ -2,11 +2,12 @@ import { Footer } from '../components/footer/Footer';
 import { NavigationBar } from '../components/navigation/NavigationBar';
 import img1 from '../assets/images/404_image.png';
 import { Row, Container, Col   } from 'react-bootstrap';
+import { NavigationMain } from '../components/navigation/NavigationMain';
 
 export function ErrorPage(props) {
 	return (
 	<>
-	<NavigationBar offCanvasPlacement="end" />
+	<NavigationMain offCanvasPlacement="end" />
 	<div className="404__page">
 		<Container>
 			<Row>
