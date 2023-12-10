@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {CastPage} from './pages/CastPage';
 import {ErrorPage} from './pages/ErrorPage';
 import {
   createBrowserRouter,
@@ -15,8 +16,12 @@ const router = createBrowserRouter([
     path: "/",
     element: <App/>,
     errorElement: <ErrorPage />,
-
   },
+  {
+    path: "/cast/:castId",
+    element: <CastPage/>,
+    errorElement: <ErrorPage/>
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
