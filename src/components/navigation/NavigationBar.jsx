@@ -32,6 +32,12 @@ export function NavigationBar(props) {
     setShowRegister(true);
     setShowLogin(false);
   };
+
+let navigate = useNavigate();
+const routeChange = () =>{
+    let path = '/SearchPage';
+    navigate(path);
+}
   
 
 	return (
@@ -51,7 +57,9 @@ export function NavigationBar(props) {
                   className="me-2"
                   aria-label="Search"
                 />
-                <Button variant="outline-success">Search</Button>
+                <Button type = "submit" variant="outline-success"
+                  onClick={routeChange}
+                >Search</Button>
               </Form>
             </div>
 
