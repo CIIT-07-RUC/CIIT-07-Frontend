@@ -1,12 +1,12 @@
 import './App.scss';
 import { IndexPage } from './pages/IndexPage';
 import { Footer } from './components/footer/Footer';
-import { NavigationBar } from './components/navigation/NavigationBar';
+import { NavigationMain } from './components/navigation/NavigationMain';
 
 function App() {
   return (
     <div className="App">
-			<NavigationBar offCanvasPlacement="end" />
+			<NavigationMain offCanvasPlacement="end" />
       <IndexPage/>
       <Footer />
     </div>

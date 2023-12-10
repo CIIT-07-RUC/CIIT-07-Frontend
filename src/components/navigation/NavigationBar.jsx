@@ -1,5 +1,6 @@
 import './index.scss';
 
+import { useContext } from 'react';
 import { useState } from 'react';
 import { List, Bookmark, Gear } from 'react-bootstrap-icons';
 
@@ -11,28 +12,27 @@ import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Login } from '../login/Login';
 import { Link } from "react-router-dom";
+import { Sidebar } from './Sidebar';
 
 export function NavigationBar(props) {
-  const [show, setShow] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
 
-  const closeModal = () => {
-    setShowLogin(false);
-    setShowRegister(false);
-  };
-  const login = () => {
-    setShowLogin(true);
-    setShowRegister(false);
+  const [showLogin, setShowLogin] = useState(false);
+	const [showRegister, setShowRegister] = useState(false);
+  
+	const closeModal = () => {
+	  setShowLogin(false);
+	  setShowRegister(false);
+	};
+
+	const login = () => {
+		setShowLogin(true);
+		setShowRegister(false);
   };
   const register = () => {
     setShowRegister(true);
     setShowLogin(false);
   };
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+  
 
 	return (
     <>
@@ -65,7 +65,7 @@ export function NavigationBar(props) {
               </div>
               <div>
               <Nav.Link  className='w-100' href="">
-                <List variant="primary" onClick={handleShow} size={30}/>
+                <List variant="primary" onClick={props.handleShow} size={30}/>
               </Nav.Link>
               </div>
             </Nav>
@@ -73,23 +73,6 @@ export function NavigationBar(props) {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Offcanvas show={show} onHide={handleClose} bg="dark" data-bs-theme="dark"  placement={props.offCanvasPlacement}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>ImdbCheapClone Sidebar</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-        <Nav className="flex-column">
-          <Link to="/account">
-            <Gear />
-            <span style={{marginLeft: '10px' }}> Account </span>
-          </Link>
-          <Link to="/bookmarks" href="#Bookmark">
-            <Bookmark/>
-            <span style={{marginLeft: '10px' }}> Bookmark </span>
-          </Link>
-        </Nav>
-        </Offcanvas.Body>
-      </Offcanvas>
       <Login showLogin={showLogin} showRegister={showRegister} login={login} register={register} closeModal={closeModal} />
     </>
 	);
