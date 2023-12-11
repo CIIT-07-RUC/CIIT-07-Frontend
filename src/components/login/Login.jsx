@@ -1,14 +1,52 @@
+import { useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
+import UsersAPI from '../../apis/UsersAPI';
 
 export function Login({ showLogin, showRegister, login, register, closeModal }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const doLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await UsersAPI.login(email, password);
+      sessionStorage.setItem('token', result.token);
+      console.log(result);
+    }
+    catch (e) {
+      console.error('Login failed');
+    }
+  }
+
+  const doSignup = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await UsersAPI.register(email, password);
+      console.log(result);
+    }
+    catch (e) {
+      console.error('Signup failed');
+    }
+  }
+
   const renderLoginForm = () => {
     return (
-      <Form>
+      <Form onSubmit={e => doLogin(e)}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Control type="email" placeholder="Email address" />
+          <Form.Control
+            type="email"
+            placeholder="Email address"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
         </Form.Group>
         <Row>
           <Col>
@@ -30,12 +68,22 @@ export function Login({ showLogin, showRegister, login, register, closeModal }) 
 
   const renderRegisterForm = () => {
     return (
-      <Form>
+      <Form onSubmit={e => doSignup(e)}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Control type="email" placeholder="Email address" />
+          <Form.Control
+            type="email"
+            placeholder="Email address"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword2">
           <Form.Control type="password" placeholder="Repeat password" />
