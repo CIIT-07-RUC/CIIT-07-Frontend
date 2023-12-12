@@ -44,7 +44,7 @@ const routeChange = () =>{
     <>
       <Navbar bg="dark" data-bs-theme="dark" className=" px-lg-3">
         <Container fluid>
-          <Navbar.Brand href="#">ImdbCheapClone</Navbar.Brand>
+          <Navbar.Brand href="/">ImdbCheapClone</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
           <div className="navigation__content--wrapper align-items-center justify-content-between d-flex w-100">
