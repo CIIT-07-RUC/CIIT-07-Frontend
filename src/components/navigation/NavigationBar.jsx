@@ -34,7 +34,7 @@ export function NavigationBar(props) {
   };
 
 let navigate = useNavigate();
-const routeChange = () =>{
+const routeChangeSearchPage = () =>{
     let path = '/SearchPage';
     navigate(path);
 }
@@ -58,7 +58,7 @@ const routeChange = () =>{
                   aria-label="Search"
                 />
                 <Button type = "submit" variant="outline-success"
-                  onClick={routeChange}
+                  onClick={routeChangeSearchPage}
                 >Search</Button>
               </Form>
             </div>
