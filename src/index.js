@@ -5,6 +5,7 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {CastPage} from './pages/CastPage';
 import {ErrorPage} from './pages/ErrorPage';
+import {SearchPage} from './pages/SearchPage';
 import {
   createBrowserRouter,
   RouterProvider,
