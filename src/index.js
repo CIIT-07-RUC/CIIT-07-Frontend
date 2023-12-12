@@ -22,6 +22,11 @@ const router = createBrowserRouter([
     path: "/cast/:castId",
     element: <CastPage/>,
     errorElement: <ErrorPage/>
+  },
+  {
+    path: "/SearchPage",
+    element: <SearchPage/>,
+    errorElement: <ErrorPage/>
   }
 ]);
 
