@@ -4,17 +4,34 @@ import { Row, Container, Col   } from 'react-bootstrap';
 import img1 from '../assets/images/404_image.png';
 import { NavigationMain } from '../components/navigation/NavigationMain';
 import { Footer } from '../components/footer/Footer';
+import MovieList from '../components/movieList/MovieList';
+import PersonList from '../components/searchResultsList/PersonList';
+import TitleList from '../components/searchResultsList/TitleList';
 
 
 export function SearchPage(props) {
+
+	const mockedPersons = [
+		{ id: 1, name: 'Leonardo Dicaprio', proffesion: 'Actor', birthYear: '1974'},
+		{ id: 2, name: 'Leonardo Dicaprio', proffesion: 'Actor', birthYear: '1974'},
+		{ id: 3, name: 'Leonardo Dicaprio', proffesion: 'Actor', birthYear: '1974'},
+		{ id: 4, name: 'Leonardo Dicaprio', proffesion: 'Actor', birthYear: '1974'},
+	];
+	const mockedMovies = [
+		{ id: 1, name: 'Movie 1', image: img1},
+		{ id: 2, name: 'Movie 2', image: img1},
+		{ id: 3, name: 'Movie 3', image: img1},
+		{ id: 4, name: 'Movie 4', image: img1},
+	];
 
 	const mockedSearchQuery = "leonardo";
 	
 	const mockedMovieObj = {
 		items: {
-			img: [img1, img1, img1],
-			title: ["Title 1", "Title 2", "Title 3"],
-			description: ["Lorem ipsum dolor sit amet1", "Lorem ipsum dolor sit amet2", "Lorem ipsum dolor sit amet3"],
+			img: [img1],
+			title: ["Title 1"],
+			year: ["year"],
+			description: ["Lorem ipsum dolor sit amet1"]
 		}
 	}
 
@@ -40,9 +57,7 @@ export function SearchPage(props) {
 			<Container>
 				<div className="search__page--title-results bg-light">
 					<h1>Titles: </h1>
-					<p> result_1: <strong> Title </strong> (year: 2010)</p>
-					<p> result_2: <strong> Title </strong> (year: 2000)</p>
-					<p> result_3: <strong> Title </strong> (year: 1998)</p>
+					<TitleList movies={mockedMovies} />
 				</div>
 			</Container>
 		</div>
@@ -51,8 +66,9 @@ export function SearchPage(props) {
 			<Container>
 				<div className="search__page--person-results bg-light">
 					<h1>People: </h1>
-					<p> result_1: <strong> Name </strong> (birth year: 1974)</p>
+					<PersonList movies={mockedPersons} />
 				</div>
+				
 			</Container>
 		</div>
 	</div>
