@@ -1,4 +1,4 @@
-import React, {useState, createContext} from 'react';
+import React, {useState, createContext,useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,6 +19,13 @@ const ThemeContext = createContext();
 
 function ThemeProvider({ children }) {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (sessionStorage.getItem('token') !== null ) {
+      setIsUserLoggedIn(true);
+    }
+  }, [])
+  
 
   return (
     <ThemeContext.Provider value={{ isUserLoggedIn, setIsUserLoggedIn }}>
