@@ -4,14 +4,18 @@ import { Row, Container, InputGroup , Col   } from 'react-bootstrap';
 import { NavigationMain } from '../components/navigation/NavigationMain';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-
+import { ThemeContext } from '../index';
+import { UsersAPI } from '../apis/UsersAPI';
 
 
 function AccountPage() {
 	const [validated, setValidated] = useState(false);
+	const [userData, setUserData] = useState({});
+
+	const { userId, setUserId}  = useContext(ThemeContext);
 
 	const handleSubmit = (event) => {
 	  const form = event.currentTarget;
@@ -22,6 +26,26 @@ function AccountPage() {
   
 	  setValidated(true);
 	};
+
+	const fetchUserData = async () => {
+		try {
+			if (userId) {
+				const result = await UsersAPI.getById(userId);
+				console.log("User--data", result);
+				setUserData(result);
+			  } else {
+				console.log("User ID not available yet.");
+			  }
+		  }
+		  catch (e) {
+			console.error('Fetching failed!', e);
+		  }
+	}
+
+	useEffect(() => {
+		fetchUserData();
+	}, [userId])
+	console.log("userData", userData)
 
   return (
 	<>
@@ -37,6 +61,83 @@ function AccountPage() {
 					<div className="text--content__wrapper">
 						<h2>Account Overview</h2>
 					</div>
+					{
+						Object.keys(userData).length > 0 ?
+						<div className='user-data__overview'>
+							<div>
+								<span className='highlighted'>Email: </span>
+								<>
+									{userData.email !== null ?  
+									<span>
+									{userData.email}
+									</span>
+									: 
+									<span className='data-missing'>
+										Data for First name are missing
+									</span>
+									}
+								</>							</div>
+							<div>
+								<span className='highlighted' >First name:</span>
+								<>
+									{userData.firstName !== null ?  
+									<span>
+									{userData.firstName}
+									</span>
+									: 
+									<span className='data-missing'>
+										Data for Last name are missing
+									</span>
+									}
+								</>
+
+							</div>
+							<div>
+								<span className='highlighted'> Last name:</span>
+								<>
+									{userData.lastName !== null ?  
+									<span>
+									{userData.lastName}
+									</span>
+									: 
+									<span className='data-missing'>
+										Data for Last name are missing
+									</span>
+									}
+								</>							
+							</div>
+							<div>
+								<span className='highlighted'>User name:</span>
+								<>
+									{userData.userName !== null ?  
+									<span>
+									{userData.userName}
+									</span>
+									: 
+									<span className='data-missing'>
+										Data for User name are missing
+									</span>
+									}
+								</>							
+							</div>
+							<div>
+								<span className='highlighted'>Phone:</span>
+								<>
+									{userData.phone !== null ?  
+									<span>
+									{userData.phone}
+									</span>
+									: 
+									<span className='data-missing'>
+										Data for Phone are missing
+									</span>
+									}
+								</>							
+							</div>
+						</div>
+						: null
+					}
+
 				</div>
 			</Tab>
 			<Tab eventKey="edit-settings" title="Edit settings">

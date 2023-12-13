@@ -50,6 +50,23 @@ body {
 				min-width: 200px;
 			}
 		}
+
+		.user-data__overview{
+			margin-top: 30px;
+			> div {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				gap: 10px;
+				.highlighted{
+					font-weight: 700;
+					font-size: 17px;
+				}
+				.data-missing{
+					color: rgb(190, 123, 0);
+				}
+			}
+		}
 	}
 }
 
