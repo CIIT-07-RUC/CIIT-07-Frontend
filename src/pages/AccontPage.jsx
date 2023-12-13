@@ -24,27 +24,34 @@ function AccountPage() {
 	const { userId, setUserId}  = useContext(ThemeContext);
 
 	const handleSubmit = async (event) => {
-		event.preventDefault();
+	  event.preventDefault();
 	  const form = event.currentTarget;
 
 
 		try {
 			if (userId) {
+			const userName = updatedUserName === userData.userName ? userData.userName : updatedUserName;
+			const firstName = updatedFName === userData.firstName ? userData.firstName : updatedFName;
+			const lastName = updatedLName === userData.lastName ? userData.lastName : updatedLName;
+			const phone = updatedPhone === userData.phone ? userData.phone : updatedPhone;
+			const email = updatedEmail === userData.email ? userData.email : updatedEmail;
+
 			const addInformationUserInformationBody = {
-				userName: 'sada',
-				firstName: "string",
-				lastName: "string",
-				phone: "string"
+				userName: userName,
+				firstName: firstName,
+				lastName: lastName
 			}
 
 			const updateUserInformationBody = {
-				email: 'matustest0@test.com',
-				phone: ""
+				email: email,
+				phone: phone
 			};
 
 			const addInformationUserInformationBodyJson = JSON.stringify(addInformationUserInformationBody);
-			const result = await UsersAPI.addInformation(userId,addInformationUserInformationBody );
-			console.log("result", result)
+			const result1 = await UsersAPI.addInformation(userId,addInformationUserInformationBody );
+			const result2 = await UsersAPI.updateUser(userId,updateUserInformationBody );
+
+			console.log("result", result2)
 			} else {
 				console.log("BRASKO POCKAJ")
 			}
@@ -229,7 +236,7 @@ function AccountPage() {
 								onChange={e => setUpdatedEmail(e.target.value)}
 								/>
 								<Form.Control.Feedback type="invalid">
-								Please choose a username.
+								Please choose valid email.
 								</Form.Control.Feedback>
 							</InputGroup>
 						</Form.Group>
@@ -259,7 +266,7 @@ function AccountPage() {
 								required
 								/>
 								<Form.Control.Feedback type="invalid">
-									Please choose a username.
+									Please choose valid phone.
 								</Form.Control.Feedback>
 							</InputGroup>
 						</Form.Group>
