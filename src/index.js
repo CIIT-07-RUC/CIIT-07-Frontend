@@ -14,6 +14,7 @@ import { Footer } from './components/footer/Footer';
 import { IndexPage } from './pages/IndexPage';
 
 import './App.scss';
+import AccountPage from './pages/AccontPage';
 const ThemeContext = createContext();
 
 
@@ -49,6 +50,11 @@ const router = createBrowserRouter([
   {
     path: "/SearchPage",
     element: <SearchPage/>,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: "/account",
+    element: <AccountPage/>,
     errorElement: <ErrorPage/>
   }
 ]);
