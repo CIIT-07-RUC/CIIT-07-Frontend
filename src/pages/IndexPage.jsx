@@ -1,8 +1,9 @@
-import { NavigationBar} from '../components/navigation/NavigationBar';
+import { NavigationMain} from '../components/navigation/NavigationMain';
 import { CCarousel } from '../components/carousel/Carousel';
 import { Row, Container, Col   } from 'react-bootstrap';
 import img1 from '../assets/images/movie2.jpeg';
 import img2 from '../assets/images/movie1.webp';
+import { Footer } from '../components/footer/Footer';
 
 
 export function IndexPage() {
@@ -16,13 +17,18 @@ export function IndexPage() {
 	
 
 	return (
-	  <div className="">
-			<Container>
-				<Row style={{margin: '50px 0'}}>
-					<Col><CCarousel items={mockedMovieObj} title="Fresh movies" /></Col>
-					<Col><CCarousel items={mockedMovieObj} title="Fresh actors" /></Col>
-				</Row>
-			</Container>
-	  </div>
+		<>
+			<NavigationMain offCanvasPlacement="end" />
+			<div className="">
+					<Container>
+						<Row style={{margin: '50px 0'}}>
+							<Col><CCarousel items={mockedMovieObj} title="Fresh movies" /></Col>
+							<Col><CCarousel items={mockedMovieObj} title="Fresh actors" /></Col>
+						</Row>
+					</Container>
+			</div>
+			<Footer/>
+		</>
+
 	);
 }

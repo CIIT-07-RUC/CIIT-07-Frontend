@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { Modal, Button, Form, Row, Col, Alert } from 'react-bootstrap';
 import UsersAPI from '../../apis/UsersAPI';
-import { ThemeContext } from '../../App';
+import { ThemeContext } from '../../index';
 
 export function Login({ showLogin, showRegister, login, register, closeModal }) {
   // LOGIN RELATED STATES:

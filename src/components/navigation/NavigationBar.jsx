@@ -13,7 +13,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Login } from '../login/Login';
 import { Link, useNavigate } from "react-router-dom";
 import { Sidebar } from './Sidebar';
-import { ThemeContext } from '../../App';
+import { ThemeContext } from '../../index';
 
 export function NavigationBar(props) {
 
