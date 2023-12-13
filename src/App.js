@@ -7,8 +7,10 @@ import React, { createContext, useState } from 'react';
 const ThemeContext = createContext();
 
 function ThemeProvider({ children }) {
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
   return (
-    <ThemeContext.Provider >
+    <ThemeContext.Provider value={{ isUserLoggedIn, setIsUserLoggedIn }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -24,4 +26,4 @@ function App() {
   );
 }
 
-export default App;
+export {ThemeContext, App};

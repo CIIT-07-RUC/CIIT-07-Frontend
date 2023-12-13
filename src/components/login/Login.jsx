@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Modal, Button, Form, Row, Col, Alert } from 'react-bootstrap';
 import UsersAPI from '../../apis/UsersAPI';
+import { ThemeContext } from '../../App';
 
 export function Login({ showLogin, showRegister, login, register, closeModal }) {
   // LOGIN RELATED STATES:
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [isLoginEmailInvalid, setIsLoginEmailInvalid] = useState(false);
   const [isLoginPasswordInvalid, setIsLoginPasswordInvalid] = useState(false);
   const [isLoginSuccesfull, setIsLoginSuccesfull] = useState(undefined);
@@ -23,6 +23,9 @@ export function Login({ showLogin, showRegister, login, register, closeModal }) 
   const [isRegisterSuccesfull, setIsRegisterSuccesfull] = useState(undefined);
   const [registerSuccesfullMsg, setRegisterSuccesfullMsg] = useState('');
 
+  const { isUserLoggedIn, setIsUserLoggedIn } = useContext(ThemeContext);
+console.log("BROO?", isUserLoggedIn )
+
 
   const doLogin = async (e) => {
     e.preventDefault();
@@ -34,13 +37,13 @@ export function Login({ showLogin, showRegister, login, register, closeModal }) 
     try {
       const result = await UsersAPI.login(email, password);
       sessionStorage.setItem('token', result.token);
-      setIsLoginSuccesfull(true);
+      setIsUserLoggedIn(true);
       console.log(result);
     }
     catch (e) {
       console.error('Login failed', e.response.data);
       setLoginNotSuccesfullErrMsg(e.response.data);
-      setIsLoginSuccesfull(false);
+      setIsUserLoggedIn(false);
 
     }
   }
@@ -147,7 +150,7 @@ export function Login({ showLogin, showRegister, login, register, closeModal }) 
             <a href="#forgot-password">Forgot password?</a>
           </Col>
         </Row>
-        {isLoginSuccesfull === false && (
+        {isUserLoggedIn === false && (
           <Alert variant="danger">
             {loginNotSuccesfullErrMsg}
           </Alert>
@@ -155,7 +158,7 @@ export function Login({ showLogin, showRegister, login, register, closeModal }) 
         <div className="d-grid gap-2">
           <Button variant="primary" type="submit">Sign in</Button>
         </div>
-        {isLoginSuccesfull && (
+        {isUserLoggedIn && (
           <Alert variant="success">
             You are succesfully logged in
           </Alert>

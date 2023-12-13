@@ -13,12 +13,14 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Login } from '../login/Login';
 import { Link, useNavigate } from "react-router-dom";
 import { Sidebar } from './Sidebar';
+import { ThemeContext } from '../../App';
 
 export function NavigationBar(props) {
 
   const [showLogin, setShowLogin] = useState(false);
 	const [showRegister, setShowRegister] = useState(false);
-  
+  const { isUserLoggedIn, setIsUserLoggedIn } = useContext(ThemeContext);
+
 	const closeModal = () => {
 	  setShowLogin(false);
 	  setShowRegister(false);
@@ -31,6 +33,10 @@ export function NavigationBar(props) {
   const register = () => {
     setShowRegister(true);
     setShowLogin(false);
+  };
+
+  const logout = ()=> {
+    setIsUserLoggedIn(false)
   };
 
 let navigate = useNavigate();
@@ -68,8 +74,14 @@ const routeChangeSearchPage = () =>{
             navbarScroll
             >
               <div className='d-flex flex-row flex-row w-100 d-none d-md-flex'>
-              <Nav.Link onClick={login}>Sign In</Nav.Link>
-              <Nav.Link onClick={register}>Sign Up</Nav.Link>
+              { !isUserLoggedIn ?
+                <>
+                <Nav.Link onClick={login}>Sign In</Nav.Link>
+                <Nav.Link onClick={register}>Sign Up</Nav.Link>
+                </>
+              : 
+                <Nav.Link className='warning' onClick={logout}>Logout</Nav.Link>
+              }
               </div>
               <div>
               <Nav.Link  className='w-100' href="">
