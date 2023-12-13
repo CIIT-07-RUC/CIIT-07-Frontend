@@ -36,7 +36,9 @@ export function NavigationBar(props) {
   };
 
   const logout = ()=> {
-    setIsUserLoggedIn(false)
+    setIsUserLoggedIn(false);
+    sessionStorage.removeItem('token');
+
   };
 
 let navigate = useNavigate();
