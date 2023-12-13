@@ -6,8 +6,8 @@ export class UsersAPI {
     return response.data;
   }
 
-  static async register(email, password) {
-    const response = await api.post('/users', { email, password, PasswordConfirmation: password });
+  static async register(email, password, passwordConfirmation) {
+    const response = await api.post('/users', { email, password, passwordConfirmation });
     return response.data;
   }
 
