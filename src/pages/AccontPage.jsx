@@ -15,15 +15,50 @@ function AccountPage() {
 	const [validated, setValidated] = useState(false);
 	const [userData, setUserData] = useState({});
 
+	const [updatedEmail, setUpdatedEmail] = useState('');
+	const [updatedFName, setUpdatedFName] = useState('');
+	const [updatedUserName, setUpdatedUserName] = useState('');
+	const [updatedLName, setUpdatedLName] = useState('');
+	const [updatedPhone, setUpdatedPhone] = useState('');
+
 	const { userId, setUserId}  = useContext(ThemeContext);
 
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
+		event.preventDefault();
 	  const form = event.currentTarget;
+
+
+		try {
+			if (userId) {
+			const addInformationUserInformationBody = {
+				userName: 'sada',
+				firstName: "string",
+				lastName: "string",
+				phone: "string"
+			}
+
+			const updateUserInformationBody = {
+				email: 'matustest0@test.com',
+				phone: ""
+			};
+
+			const addInformationUserInformationBodyJson = JSON.stringify(addInformationUserInformationBody);
+			const result = await UsersAPI.addInformation(userId,addInformationUserInformationBody );
+			console.log("result", result)
+			} else {
+				console.log("BRASKO POCKAJ")
+			}
+		}
+		catch (e) {
+		console.error('Fetching failed!', e);
+		}
+
+	
 	  if (form.checkValidity() === false) {
 		event.preventDefault();
 		event.stopPropagation();
 	  }
-  
+
 	  setValidated(true);
 	};
 
@@ -32,9 +67,14 @@ function AccountPage() {
 			if (userId) {
 				const result = await UsersAPI.getById(userId);
 				console.log("User--data", result);
+				setUpdatedEmail(result.email);
+				setUpdatedPhone(result.phone);
+				setUpdatedUserName(result.userName);
+				setUpdatedLName(result.firstName);
+				setUpdatedFName(result.lastName);
 				setUserData(result);
+
 			  } else {
-				console.log("User ID not available yet.");
 			  }
 		  }
 		  catch (e) {
@@ -154,7 +194,9 @@ function AccountPage() {
 								required
 								type="text"
 								placeholder="First name"
-								defaultValue="Mark"
+								disabled={updatedFName !== null ?  true:  false}
+								defaultValue={updatedFName}
+								onChange={e => setUpdatedFName(e.target.value)}
 							/>
 							<Form.Control.Feedback>Looks good!</Form.Control.Feedback>
 							</Form.Group>
@@ -164,7 +206,10 @@ function AccountPage() {
 								required
 								type="text"
 								placeholder="Last name"
-								defaultValue="Otto"
+								disabled={updatedLName !== null ?  true:  false}
+								defaultValue={updatedLName}
+								onChange={e => setUpdatedLName(e.target.value)}
+
 							/>
 							<Form.Control.Feedback>Looks good!</Form.Control.Feedback>
 							</Form.Group>
@@ -180,6 +225,8 @@ function AccountPage() {
 								placeholder="test@test.com"
 								aria-describedby="inputGroupPrepend"
 								required
+								defaultValue={updatedEmail}
+								onChange={e => setUpdatedEmail(e.target.value)}
 								/>
 								<Form.Control.Feedback type="invalid">
 								Please choose a username.
@@ -188,7 +235,12 @@ function AccountPage() {
 						</Form.Group>
 						<Form.Group as={Col} md="6" sm="12"  controlId="validationCustomUsername">
 							<Form.Label>Username</Form.Label>
-							<Form.Control type="text" placeholder="Username" required />
+							<Form.Control 
+								type="text" 
+								disabled={updatedUserName !== null ?  true:  false}
+								defaultValue={updatedUserName}
+								onChange={e => setUpdatedUserName(e.target.value)}
+								placeholder="Username" />
 							<Form.Control.Feedback type="invalid">
 							</Form.Control.Feedback>
 						</Form.Group>
@@ -199,10 +251,10 @@ function AccountPage() {
 						<Form.Group as={Col} md="6" sm="12" controlId="validationPhone">
 							<Form.Label>Phone</Form.Label>
 							<InputGroup hasValidation>
-								<InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
 								<Form.Control
 								type="text"
-								placeholder="+45 xxx xxx xxx"
+								defaultValue={updatedPhone}
+								onChange={e => setUpdatedPhone(e.target.value)}
 								aria-describedby="inputGroupPrepend"
 								required
 								/>

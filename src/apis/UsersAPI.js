@@ -22,12 +22,21 @@ export class UsersAPI {
   }
 
   static async updateUser(id, userInfo) {
-    const response = await api.put('/users/' + id, userInfo);
+    const response = await api.put('/users/' + id, userInfo, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      });
+    
     return response.data;
   }
 
-  static async addInformation(userInfo) {
-    const response = await api.post('/users/add-information', userInfo);
+  static async addInformation(id, userInfo) {
+    const response = await api.post('/users/add-information/79', userInfo, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
     return response.data;
   }
 
