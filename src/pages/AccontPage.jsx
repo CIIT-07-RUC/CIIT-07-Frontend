@@ -4,7 +4,7 @@ import { Row, Container, InputGroup , Col, Alert   } from 'react-bootstrap';
 import { NavigationMain } from '../components/navigation/NavigationMain';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext, useEffect, Redirect} from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { ThemeContext } from '../index';
@@ -84,8 +84,6 @@ function AccountPage() {
 				setTimeout(() => {
 					setIsUserLoggedIn(false);
 				}, 3000);
-
-
 			}
 		}
 		catch (e) {
@@ -116,6 +114,15 @@ function AccountPage() {
 	useEffect(() => {
 		fetchUserData();
 	}, [userId])
+
+	if (!isUserLoggedIn) {
+		return (
+		  <div>
+			<p>You need to be logged in to access this page.</p>
+		  </div>
+		);
+	  }
+	
 	console.log("userData", userData)
 
   return (

@@ -88,7 +88,10 @@ const routeChangeSearchPage = () =>{
               </div>
               <div>
               <Nav.Link  className='w-100' href="">
+              { isUserLoggedIn ?
+
                 <List variant="primary" onClick={props.handleShow} size={30}/>
+              : null}
               </Nav.Link>
               </div>
             </Nav>
