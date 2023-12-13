@@ -26,86 +26,97 @@ function AccountPage() {
   return (
 	<>
 	<NavigationMain offCanvasPlacement="end" />
-	<Container>
+	<Container className='account-settings__page mt-5'>
 		<Tabs
-		defaultActiveKey="profile"
+		defaultActiveKey="overview"
 		id="uncontrolled-tab-example"
 		className="mb-3"
 		>
-			<Tab eventKey="overview" title="Overview">
-				
+			<Tab eventKey="overview" title="Overview" >
+				<div className="edit__settings--wrapper bg-light">
+					<div className="text--content__wrapper">
+						<h2>Account Overview</h2>
+					</div>
+				</div>
 			</Tab>
 			<Tab eventKey="edit-settings" title="Edit settings">
-			<Form noValidate validated={validated} onSubmit={handleSubmit}>
-				<Row className="mb-3">
-					<Form.Group as={Col} md="6" sm="12" controlId="validationFName">
-					<Form.Label>First name</Form.Label>
-					<Form.Control
-						required
-						type="text"
-						placeholder="First name"
-						defaultValue="Mark"
-					/>
-					<Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-					</Form.Group>
-					<Form.Group as={Col} md="6" sm="12"  controlId="validationLName">
-					<Form.Label>Last name</Form.Label>
-					<Form.Control
-						required
-						type="text"
-						placeholder="Last name"
-						defaultValue="Otto"
-					/>
-					<Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-					</Form.Group>
-				
-				</Row>
-				<Row>
-				<Form.Group as={Col} md="6" sm="12" controlId="validationCustomUsername">
-					<Form.Label>Email</Form.Label>
-					<InputGroup hasValidation>
-						<InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-						<Form.Control
-						type="text"
-						placeholder="test@test.com"
-						aria-describedby="inputGroupPrepend"
-						required
-						/>
-						<Form.Control.Feedback type="invalid">
-						Please choose a username.
-						</Form.Control.Feedback>
-					</InputGroup>
-				</Form.Group>
-				<Form.Group as={Col} md="6" sm="12"  controlId="validationCustomUsername">
-					<Form.Label>Username</Form.Label>
-					<Form.Control type="text" placeholder="Username" required />
-					<Form.Control.Feedback type="invalid">
-					</Form.Control.Feedback>
-				</Form.Group>
+				<div className="edit__settings--wrapper bg-light">
+					<div className="text--content__wrapper">
+						<h2>Edit settings</h2>
+						<p className='mb-5'>You are free to change account settings! </p>
+					</div>
+					<Form noValidate validated={validated} onSubmit={handleSubmit}>
+						<Row className="mb-3">
+							<Form.Group as={Col} md="6" sm="12" controlId="validationFName">
+							<Form.Label>First name</Form.Label>
+							<Form.Control
+								required
+								type="text"
+								placeholder="First name"
+								defaultValue="Mark"
+							/>
+							<Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+							</Form.Group>
+							<Form.Group as={Col} md="6" sm="12"  controlId="validationLName">
+							<Form.Label>Last name</Form.Label>
+							<Form.Control
+								required
+								type="text"
+								placeholder="Last name"
+								defaultValue="Otto"
+							/>
+							<Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+							</Form.Group>
+						
+						</Row>
+						<Row className="mb-3">
+						<Form.Group as={Col} md="6" sm="12" controlId="validationCustomUsername">
+							<Form.Label>Email</Form.Label>
+							<InputGroup hasValidation>
+								<InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+								<Form.Control
+								type="text"
+								placeholder="test@test.com"
+								aria-describedby="inputGroupPrepend"
+								required
+								/>
+								<Form.Control.Feedback type="invalid">
+								Please choose a username.
+								</Form.Control.Feedback>
+							</InputGroup>
+						</Form.Group>
+						<Form.Group as={Col} md="6" sm="12"  controlId="validationCustomUsername">
+							<Form.Label>Username</Form.Label>
+							<Form.Control type="text" placeholder="Username" required />
+							<Form.Control.Feedback type="invalid">
+							</Form.Control.Feedback>
+						</Form.Group>
 
-				</Row>
+						</Row>
 
-				<Row>
-				<Form.Group as={Col} md="6" sm="12" controlId="validationPhone">
-					<Form.Label>Phone</Form.Label>
-					<InputGroup hasValidation>
-						<InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-						<Form.Control
-						type="text"
-						placeholder="+45 xxx xxx xxx"
-						aria-describedby="inputGroupPrepend"
-						required
-						/>
-						<Form.Control.Feedback type="invalid">
-							Please choose a username.
-						</Form.Control.Feedback>
-					</InputGroup>
-				</Form.Group>
+						<Row className="mb-3">
+						<Form.Group as={Col} md="6" sm="12" controlId="validationPhone">
+							<Form.Label>Phone</Form.Label>
+							<InputGroup hasValidation>
+								<InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+								<Form.Control
+								type="text"
+								placeholder="+45 xxx xxx xxx"
+								aria-describedby="inputGroupPrepend"
+								required
+								/>
+								<Form.Control.Feedback type="invalid">
+									Please choose a username.
+								</Form.Control.Feedback>
+							</InputGroup>
+						</Form.Group>
 
-				</Row>
-				
-				<Button type="submit">Submit form</Button>
-			</Form>
+						</Row>
+						<div className="button__wrapper d-flex justify-content-center">
+							<Button type="submit">Submit form</Button>
+						</div>
+					</Form>
+				</div>
 			</Tab>
 			<Tab eventKey="visibility" title="Visiblity">
 			</Tab>

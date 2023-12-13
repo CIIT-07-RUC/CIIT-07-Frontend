@@ -35,6 +35,24 @@ body {
 		}
 	}
 }
+.account-settings__page{
+	.edit__settings--wrapper{
+    	filter: drop-shadow(0.2rem 0.55rem 0.55rem rgba(0, 0, 0, 0.2));
+		margin-top: 50px ;
+		padding: 50px;
+		min-height: 300px;
+		.text--content__wrapper{
+			text-align: center;
+		}
+		.button__wrapper{
+			button {
+				width: 33%;
+				min-width: 200px;
+			}
+		}
+	}
+}
+
 #root {
 	min-height: 100vh;
     display: flex;
