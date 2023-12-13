@@ -1,6 +1,6 @@
 import { Footer } from '../components/footer/Footer';
 import { NavigationBar } from '../components/navigation/NavigationBar';
-import { Row, Container, InputGroup , Col   } from 'react-bootstrap';
+import { Row, Container, InputGroup , Col, Alert   } from 'react-bootstrap';
 import { NavigationMain } from '../components/navigation/NavigationMain';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -20,6 +20,10 @@ function AccountPage() {
 	const [updatedUserName, setUpdatedUserName] = useState('');
 	const [updatedLName, setUpdatedLName] = useState('');
 	const [updatedPhone, setUpdatedPhone] = useState('');
+	const { isUserLoggedIn, setIsUserLoggedIn } = useContext(ThemeContext);
+
+	const [isAccountDeactivated, setIsAccountDeactivated] = useState(false);
+	const [deactivatedAccountMsg, setDeactivatedAccountMsg] = useState('');
 
 	const { userId, setUserId}  = useContext(ThemeContext);
 
@@ -67,6 +71,26 @@ function AccountPage() {
 	  }
 
 	  setValidated(true);
+	};
+
+	const deactivateAccount = async (e) => {
+		try{
+			if (userId) {
+				const token = sessionStorage.getItem('token');
+				const result = await UsersAPI.deactivateAccount(token);
+				setIsAccountDeactivated(true);
+				setDeactivatedAccountMsg(result);
+
+				setTimeout(() => {
+					setIsUserLoggedIn(false);
+				}, 3000);
+
+
+			}
+		}
+		catch (e) {
+			console.warn("Error", e)
+		}
 	};
 
 	const fetchUserData = async () => {
@@ -279,6 +303,21 @@ function AccountPage() {
 				</div>
 			</Tab>
 			<Tab eventKey="visibility" title="Visiblity">
+				<div className="edit__settings--wrapper bg-light">
+					<div className="text--content__wrapper">
+						<h2>Visibility overview</h2>
+					</div>
+					<div className="user-data__overview">
+						{isAccountDeactivated && (
+						<Alert variant="success">
+							{deactivatedAccountMsg}
+						</Alert>
+						)}
+						<Button className='mt-5' type="submit" variant="danger" onClick={e => deactivateAccount(e.target.value)}>Deactivate account</Button>
+						<p className='mb-0 mt-2 font-weight-light'>When you click on deactivate account button, users cannot search for you</p>
+						<p className='font-weight-light'>Account will not be removed. After next log-in your account will be activated</p>
+					</div>
+				</div>
 			</Tab>
 			<Tab eventKey="admin" title="Admin" disabled>
 			</Tab>

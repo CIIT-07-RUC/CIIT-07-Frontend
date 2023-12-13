@@ -53,6 +53,9 @@ body {
 
 		.user-data__overview{
 			margin-top: 30px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 			> div {
 				display: flex;
 				flex-direction: row;

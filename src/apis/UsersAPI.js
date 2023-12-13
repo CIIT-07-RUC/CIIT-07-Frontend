@@ -40,8 +40,12 @@ export class UsersAPI {
     return response.data;
   }
 
-  static async deactivateAccount() {
-    const response = await api.post('/users/deactivate-account');
+  static async deactivateAccount(jwtToken) {
+    const response = await api.post('/users/deactivate-account',{  headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${jwtToken}`,
+    },
+  });
     return response.data;
   }
 
