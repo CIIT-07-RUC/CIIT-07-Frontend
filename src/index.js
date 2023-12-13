@@ -20,16 +20,38 @@ const ThemeContext = createContext();
 
 function ThemeProvider({ children }) {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [userId, setUserId] = useState(0);
+  const [userEmail, setUserEmail] = useState(0);
+
+  function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  }
 
   useEffect(() => {
     if (sessionStorage.getItem('token') !== null ) {
       setIsUserLoggedIn(true);
+      const jwt = parseJwt(sessionStorage.getItem('token'));
+      setUserId(jwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'])
+      setUserEmail(jwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'])
+      console.log("CO JE PRVE?", jwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'] )
     }
   }, [])
   
 
   return (
-    <ThemeContext.Provider value={{ isUserLoggedIn, setIsUserLoggedIn }}>
+    <ThemeContext.Provider value={{ 
+      isUserLoggedIn, 
+      setIsUserLoggedIn, 
+      userId, 
+      setUserId,
+      userEmail,
+      setUserEmail
+      }}>
       {children}
     </ThemeContext.Provider>
   );

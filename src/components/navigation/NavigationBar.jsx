@@ -20,6 +20,7 @@ export function NavigationBar(props) {
   const [showLogin, setShowLogin] = useState(false);
 	const [showRegister, setShowRegister] = useState(false);
   const { isUserLoggedIn, setIsUserLoggedIn } = useContext(ThemeContext);
+  const { userId, setUserId}  = useContext(ThemeContext);
 
 	const closeModal = () => {
 	  setShowLogin(false);
