@@ -13,6 +13,7 @@ export function CastPage(props) {
 	const location = useLocation()
 
 	const [castData, setCastData] = useState({});
+	const [castMovieData, setCastMovieData] = useState({});
 	const fetchCast = async () => { 
 		try {
 			const pathnameurlArr = location.pathname.split('/')
@@ -20,7 +21,6 @@ export function CastPage(props) {
 			// nm0000017
 			const result = await CastAPI.getById(castId);
 			setCastData(result);
-			console.log("GET RESULT", );
 		} catch (e) {
 			console.warn("ERROR", e)
 		}
@@ -47,7 +47,7 @@ export function CastPage(props) {
 				<div className="cast__page--top-section bg-light">
 					<h1>{castData.primaryname}</h1>
 					<p>Primary profession: {castData.primaryprofession} <strong></strong></p>
-					<p><strong> {castData.birthyear} { castData.birthyear !== null  ? <span>- {castData.birthyear} </span>  :   null } </strong></p>
+					<p><strong> {castData.birthyear} { castData.deathyear  !== ""  ? <span>- {castData.deathyear} </span>  :   null } </strong></p>
 				</div>
 				<h1>{castData.knownfortitles}</h1>
 				<MovieList movies={mockedMovies} />
