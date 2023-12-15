@@ -38,6 +38,7 @@ export function NavigationBar(props) {
 
   const logout = ()=> {
     setIsUserLoggedIn(false);
+    setUserId(-1);
     sessionStorage.removeItem('token');
 
   };
