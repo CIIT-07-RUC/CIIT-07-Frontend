@@ -15,7 +15,7 @@ const MovieList = (props) => {
         props.movies.map((movie) => (
           <Col key={movie.tConst} md={ movieGrid <= 6 ? movieGrid * 2  : movieGrid}  lg={movieGrid}>
             <Card>
-              <Card.Img variant="top" src={movie.poster} alt={movie.name} />
+              <Card.Img variant="top" src={movie.poster}/>
               <Card.Body>
                 <Card.Title>{movie.primaryTitle}</Card.Title>
               </Card.Body>

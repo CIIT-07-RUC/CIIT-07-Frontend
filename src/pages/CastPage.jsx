@@ -3,7 +3,7 @@ import { CCarousel } from '../components/carousel/Carousel';
 import { Row, Container, Col   } from 'react-bootstrap';
 import MovieList from '../components/movieList/MovieList';
 import { Footer } from '../components/footer/Footer';
-import img1 from '../assets/images/movie2.jpeg';
+import movieNotFoundImg from '../assets/images/movie_not_found.jpeg';
 import { NavigationMain } from '../components/navigation/NavigationMain';
 import React, {useEffect, useState} from 'react';
 import {CastAPI} from '../apis/CastAPI';
@@ -37,7 +37,7 @@ export function CastPage(props) {
 		  const moviesData = await Promise.all(
 			knownForTitlesArr.map(async (el) => {
 			  const castMovie = await MovieAPI.getById(el);
-			  return castMovie !== 'Not Found Movie' ? castMovie : null;
+			  return castMovie !== 'Not Found Movie' ? castMovie : notFoundMovie;
 			})
 		  );
 		  const validMoviesData = moviesData.filter((movie) => movie !== null);
@@ -60,14 +60,7 @@ export function CastPage(props) {
 	  }, [castData]);
 	  
   
-
-
-	const mockedMovies = [
-		{ id: 1, name: 'Movie 1', image: img1},
-		{ id: 2, name: 'Movie 2', image: img1 },
-		{ id: 3, name: 'Movie 3', image: img1},
-		{ id: 4, name: 'Movie 4', image: img1 },
-	];
+	const notFoundMovie = { tConst: 0, primaryTitle: 'Movie not found in our DB', poster: movieNotFoundImg};
 
 	return(
 		<>
