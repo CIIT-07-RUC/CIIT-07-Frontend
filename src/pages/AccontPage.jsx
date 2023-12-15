@@ -45,7 +45,8 @@ function AccountPage() {
 			const addInformationUserInformationBody = {
 				userName: userName,
 				firstName: firstName,
-				lastName: lastName
+				lastName: lastName,
+				phone: phone
 			}
 
 			const updateUserInformationBody = {
@@ -54,7 +55,8 @@ function AccountPage() {
 			};
 
 			const addInformationUserInformationBodyJson = JSON.stringify(addInformationUserInformationBody);
-			const result1 = await UsersAPI.addInformation(userId,addInformationUserInformationBody );
+			const token = sessionStorage.getItem('token');
+			const result1 = await UsersAPI.addInformation(addInformationUserInformationBodyJson, token );
 			const result2 = await UsersAPI.updateUser(userId,updateUserInformationBody );
 			console.log("result11", result1)
 			console.log("result", result2)
@@ -279,14 +281,15 @@ function AccountPage() {
 						</Form.Group>
 						<Form.Group as={Col} md="6" sm="12"  controlId="validationCustomUsername">
 							<Form.Label>Username</Form.Label>
-							<Form.Control 
-								type="text" 
+							<Form.Control
+								required
+								type="text"
+								placeholder="User name"
 								disabled={userData.lastName !== null ?  true:  false}
 								defaultValue={updatedUserName}
 								onChange={e => setUpdatedUserName(e.target.value)}
-								placeholder="Username" />
-							<Form.Control.Feedback type="invalid">
-							</Form.Control.Feedback>
+							/>
+							<Form.Control.Feedback>Looks good!</Form.Control.Feedback>
 						</Form.Group>
 
 						</Row>

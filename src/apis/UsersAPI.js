@@ -31,10 +31,11 @@ export class UsersAPI {
     return response.data;
   }
 
-  static async addInformation(id, userInfo) {
-    const response = await api.post('/users/add-information/79', userInfo, {
+  static async addInformation(userInfo, jwtToken) {
+    const response = await api.post('/users/add-information', userInfo, {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtToken}`,
       },
     });
     return response.data;
