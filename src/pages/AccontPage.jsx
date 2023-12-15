@@ -25,6 +25,8 @@ function AccountPage() {
 	const [isAccountDeactivated, setIsAccountDeactivated] = useState(false);
 	const [deactivatedAccountMsg, setDeactivatedAccountMsg] = useState('');
 
+	const [loadingDone, setLoadingDone] = useState(false);
+
 	const { userId, setUserId}  = useContext(ThemeContext);
 
 	const handleSubmit = async (event) => {
@@ -54,7 +56,7 @@ function AccountPage() {
 			const addInformationUserInformationBodyJson = JSON.stringify(addInformationUserInformationBody);
 			const result1 = await UsersAPI.addInformation(userId,addInformationUserInformationBody );
 			const result2 = await UsersAPI.updateUser(userId,updateUserInformationBody );
-
+			console.log("result11", result1)
 			console.log("result", result2)
 			} else {
 				console.log("BRASKO POCKAJ")
@@ -93,27 +95,30 @@ function AccountPage() {
 
 	const fetchUserData = async () => {
 		try {
-			if (userId) {
-				const result = await UsersAPI.getById(userId);
-				console.log("User--data", result);
-				setUpdatedEmail(result.email);
-				setUpdatedPhone(result.phone);
-				setUpdatedUserName(result.userName);
-				setUpdatedLName(result.firstName);
-				setUpdatedFName(result.lastName);
-				setUserData(result);
-
-			  } else {
-			  }
+		  if (userId) {
+			const result = await UsersAPI.getById(userId);
+			console.log("User--data", result);
+			setUpdatedEmail(result.email);
+			setUpdatedPhone(result.phone);
+			setUpdatedUserName(result.userName);
+			setUpdatedLName(result.firstName);
+			setUpdatedFName(result.lastName);
+			setUserData(result);
+			setLoadingDone(true);
+		  } else {
 		  }
-		  catch (e) {
-			console.error('Fetching failed!', e);
-		  }
-	}
-
-	useEffect(() => {
+		} catch (e) {
+		  console.error('Fetching failed!', e);
+		  setLoadingDone(true); 
+		}
+	  };
+	  
+	  useEffect(() => {
 		fetchUserData();
-	}, [userId])
+	  }, [userId]);
+	  
+
+	
 
 	if (!isUserLoggedIn) {
 		return (
@@ -140,7 +145,7 @@ function AccountPage() {
 						<h2>Account Overview</h2>
 					</div>
 					{
-						Object.keys(userData).length > 0 ?
+						 loadingDone ?
 						<div className='user-data__overview'>
 							<div>
 								<span className='highlighted'>Email: </span>
@@ -213,7 +218,8 @@ function AccountPage() {
 								</>							
 							</div>
 						</div>
-						: null
+						:       <p>Loading...(refresh page)</p>
+
 					}
 
 				</div>
@@ -232,7 +238,7 @@ function AccountPage() {
 								required
 								type="text"
 								placeholder="First name"
-								disabled={updatedFName !== null ?  true:  false}
+								disabled={userData.firstName !== null ?  true:  false}
 								defaultValue={updatedFName}
 								onChange={e => setUpdatedFName(e.target.value)}
 							/>
@@ -244,7 +250,7 @@ function AccountPage() {
 								required
 								type="text"
 								placeholder="Last name"
-								disabled={updatedLName !== null ?  true:  false}
+								disabled={userData.lastName !== null ?  true:  false}
 								defaultValue={updatedLName}
 								onChange={e => setUpdatedLName(e.target.value)}
 
@@ -275,7 +281,7 @@ function AccountPage() {
 							<Form.Label>Username</Form.Label>
 							<Form.Control 
 								type="text" 
-								disabled={updatedUserName !== null ?  true:  false}
+								disabled={userData.lastName !== null ?  true:  false}
 								defaultValue={updatedUserName}
 								onChange={e => setUpdatedUserName(e.target.value)}
 								placeholder="Username" />
