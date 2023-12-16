@@ -38,12 +38,14 @@ console.log("BROO?", isUserLoggedIn )
       const result = await UsersAPI.login(email, password);
       sessionStorage.setItem('token', result.token);
       setIsUserLoggedIn(true);
+      setIsLoginSuccesfull(true);
       console.log(result);
     }
     catch (e) {
       console.error('Login failed', e.response.data);
       setLoginNotSuccesfullErrMsg(e.response.data);
       setIsUserLoggedIn(false);
+      setIsLoginSuccesfull(false);
 
     }
   }
@@ -150,7 +152,7 @@ console.log("BROO?", isUserLoggedIn )
             <a href="#forgot-password">Forgot password?</a>
           </Col>
         </Row>
-        {isUserLoggedIn === false && (
+        {isLoginSuccesfull === false && (
           <Alert variant="danger">
             {loginNotSuccesfullErrMsg}
           </Alert>
@@ -158,7 +160,7 @@ console.log("BROO?", isUserLoggedIn )
         <div className="d-grid gap-2">
           <Button variant="primary" type="submit">Sign in</Button>
         </div>
-        {isUserLoggedIn && (
+        {isLoginSuccesfull && (
           <Alert variant="success">
             You are succesfully logged in
           </Alert>
