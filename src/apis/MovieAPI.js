@@ -5,6 +5,11 @@ export class MovieAPI {
     const response = await api.get('/movie/' + id);
     return response.data;
   }
+
+  static async getSimilar(id) {
+    const response = await api.get('/movie/' + id + '/similar');
+    return response.data;
+  }
 }
 
 export default MovieAPI;

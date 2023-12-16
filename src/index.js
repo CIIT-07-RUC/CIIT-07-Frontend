@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {CastPage} from './pages/CastPage';
+import {MoviePage} from './pages/MoviePage';
 import {ErrorPage} from './pages/ErrorPage';
 import {SearchPage} from './pages/SearchPage';
 import {
@@ -67,6 +68,11 @@ const router = createBrowserRouter([
   {
     path: "/cast/:castId",
     element: <CastPage/>,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: "/movie/:movieId",
+    element: <MoviePage/>,
     errorElement: <ErrorPage/>
   },
   {

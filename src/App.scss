@@ -73,6 +73,20 @@ body {
 	}
 }
 
+.movie__page{
+	.poster-picture{
+		max-width: 100%;
+		margin: auto;
+		display: block;
+	}
+
+	.similar-movie-poster{
+		aspect-ratio: 1/1;
+		object-fit: cover;
+		width: 50%;
+	}
+}
+
 #root {
 	min-height: 100vh;
     display: flex;
