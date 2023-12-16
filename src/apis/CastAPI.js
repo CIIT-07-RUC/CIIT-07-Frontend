@@ -10,6 +10,11 @@ export class CastAPI {
     const response = await api.get('/cast/coplayers/' + castKeyword);
     return response.data;
   }
+
+  static async getAllCast(movieTitle) {
+    const response = await api.get('/cast/fullcast/' + movieTitle);
+    return response.data;
+  }
 }
 
 export default CastAPI;
