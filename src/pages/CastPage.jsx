@@ -8,7 +8,7 @@ import { NavigationMain } from '../components/navigation/NavigationMain';
 import React, {useEffect, useState} from 'react';
 import {CastAPI} from '../apis/CastAPI';
 import { MovieAPI } from '../apis/MovieAPI';
-
+import { CastList } from '../components/castList/CastList';
 import { useHistory ,useLocation } from 'react-router-dom';
 
 export function CastPage(props) {
@@ -17,6 +17,7 @@ export function CastPage(props) {
 	const [castData, setCastData] = useState({});
 
 	const [castMovieData, setCastMovieData] = useState([{}]);
+	const [coplayers, setCoplayers] = useState([])
 	const fetchCast = async () => {
 		try {
 		  const pathnameurlArr = location.pathname.split('/');
@@ -47,6 +48,16 @@ export function CastPage(props) {
 		  console.error('Error fetching cast movie data:', error);
 		}
 	  };
+
+	  const fetchCoPlayers = async () => {
+		try {
+			const result = await CastAPI.getAllCoplayers(castData.primaryname);
+			const coplayers = result.slice(1, 6);
+			setCoplayers(coplayers);
+		} catch (e) {
+			console.warn("err:", e)
+		}
+	  }
 	  
 	  
 	  useEffect(() => {
@@ -56,8 +67,11 @@ export function CastPage(props) {
 	  useEffect(() => {
 		if (Object.entries(castData).length !== 0) {
 		  fetchCastMovie();
+		  fetchCoPlayers();
 		}
 	  }, [castData]);
+
+	const coplayersTableHeads = ['Id', 'Name', 'Primary profession', 'Frequency'];
 	  
   
 	const notFoundMovie = { tConst: 0, primaryTitle: 'Movie not found in our DB', poster: movieNotFoundImg};
@@ -76,6 +90,12 @@ export function CastPage(props) {
 				</Container>
 			</div>
 			<MovieList movies={castMovieData} />
+			<CastList 
+				title="Most frequent co-players" 
+				tableData={coplayers} 
+				tableHeads={coplayersTableHeads} 
+			/>
+
 			<Footer/>
 
 		</>
