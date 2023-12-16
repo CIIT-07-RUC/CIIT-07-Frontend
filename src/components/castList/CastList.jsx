@@ -19,6 +19,7 @@ export function CastList(props) {
     navigate(`/cast/${id}`, {replace:true});
     window.location.reload();
   }
+  console.log("props.props.tableData", props.tableData)
 
 	return (
     <>
@@ -41,7 +42,7 @@ export function CastList(props) {
       {
         (props.tableData).map((el, key) => (
 
-          <tr href="test"  onClick={() => redirectToCastPage(el.item1)}>
+          <tr style={{ cursor: 'pointer '}}  onClick={() => redirectToCastPage(el.item1)}>
             <td>{el.item1} </td>
             <td>{el.item2}</td>
             <td>{el.item3}</td>

@@ -15,6 +15,7 @@ import { IndexPage } from './pages/IndexPage';
 
 import './App.scss';
 import AccountPage from './pages/AccontPage';
+import { FullCastPage } from './pages/FullCastPage';
 const ThemeContext = createContext();
 
 
@@ -76,6 +77,11 @@ const router = createBrowserRouter([
   {
     path: "/account",
     element: <AccountPage/>,
+    errorElement: <ErrorPage/>
+  },
+  {
+    path: "/fullcast/:castId",
+    element: <FullCastPage/>,
     errorElement: <ErrorPage/>
   }
 ]);
