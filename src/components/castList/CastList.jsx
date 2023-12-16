@@ -10,8 +10,15 @@ import { Login } from '../login/Login';
 import { ThemeContext } from '../../index';
 import Table from 'react-bootstrap/Table';
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 export function CastList(props) {
+  const navigate = useNavigate();
+
+  const redirectToCastPage = (id) =>{
+    navigate(`/cast/${id}`, {replace:true});
+    window.location.reload();
+  }
 
 	return (
     <>
@@ -33,12 +40,14 @@ export function CastList(props) {
       <tbody>
       {
         (props.tableData).map((el, key) => (
-        <tr>
-          <td>{el.item1} </td>
-          <td>{el.item2}</td>
-          <td>{el.item3}</td>
-          <td>{el.item4}</td>
-        </tr>
+
+          <tr href="test"  onClick={() => redirectToCastPage(el.item1)}>
+            <td>{el.item1} </td>
+            <td>{el.item2}</td>
+            <td>{el.item3}</td>
+            <td>{el.item4}</td>
+          </tr>
+
         ))
       }
         
