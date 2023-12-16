@@ -1,0 +1,17 @@
+.rating-container {
+  svg {
+    padding: 0 2px 4px;
+  }
+
+  &.input {
+    svg {
+      cursor: pointer;
+    }
+
+    &:hover {
+      svg {
+        color: #0A58CA;
+      }
+    }
+  }
+}
