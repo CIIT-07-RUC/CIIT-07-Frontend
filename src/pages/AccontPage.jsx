@@ -9,11 +9,14 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { ThemeContext } from '../index';
 import { UsersAPI } from '../apis/UsersAPI';
+import { useNavigate } from 'react-router-dom';
 
 
 function AccountPage() {
 	const [validated, setValidated] = useState(false);
 	const [userData, setUserData] = useState({});
+
+	const navigate = useNavigate();
 
 	const [updatedEmail, setUpdatedEmail] = useState('');
 	const [updatedFName, setUpdatedFName] = useState('');
@@ -56,12 +59,9 @@ function AccountPage() {
 
 			const addInformationUserInformationBodyJson = JSON.stringify(addInformationUserInformationBody);
 			const token = sessionStorage.getItem('token');
-			const result1 = await UsersAPI.addInformation(addInformationUserInformationBodyJson, token );
-			const result2 = await UsersAPI.updateUser(userId,updateUserInformationBody );
-			console.log("result11", result1)
-			console.log("result", result2)
+			 await UsersAPI.addInformation(addInformationUserInformationBodyJson, token );
+			 await UsersAPI.updateUser(userId,updateUserInformationBody );
 			} else {
-				console.log("BRASKO POCKAJ")
 			}
 		}
 		catch (e) {
@@ -87,6 +87,9 @@ function AccountPage() {
 
 				setTimeout(() => {
 					setIsUserLoggedIn(false);
+					setUserId(-1);
+					sessionStorage.removeItem('token');
+					navigate(`/`, {replace:true});
 				}, 3000);
 			}
 		}
@@ -99,7 +102,6 @@ function AccountPage() {
 		try {
 		  if (userId) {
 			const result = await UsersAPI.getById(userId);
-			console.log("User--data", result);
 			setUpdatedEmail(result.email);
 			setUpdatedPhone(result.phone);
 			setUpdatedUserName(result.userName);
@@ -111,13 +113,13 @@ function AccountPage() {
 		  }
 		} catch (e) {
 		  console.error('Fetching failed!', e);
-		  setLoadingDone(true); 
+		  setLoadingDone(false); 
 		}
 	  };
 	  
 	  useEffect(() => {
 		fetchUserData();
-	  }, [userId]);
+	  }, [loadingDone, userId]);
 	  
 
 	
@@ -130,7 +132,6 @@ function AccountPage() {
 		);
 	  }
 	
-	console.log("userData", userData)
 
   return (
 	<>
@@ -299,7 +300,7 @@ function AccountPage() {
 							<Form.Label>Phone</Form.Label>
 							<InputGroup hasValidation>
 								<Form.Control
-								type="text"
+								type="number"
 								defaultValue={updatedPhone}
 								onChange={e => setUpdatedPhone(e.target.value)}
 								aria-describedby="inputGroupPrepend"

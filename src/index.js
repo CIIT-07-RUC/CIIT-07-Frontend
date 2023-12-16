@@ -38,7 +38,6 @@ function ThemeProvider({ children }) {
       const jwt = parseJwt(sessionStorage.getItem('token'));
       setUserId(jwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'])
       setUserEmail(jwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'])
-      console.log("CO JE PRVE?", jwt['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'] )
     }
   }, [])
   
