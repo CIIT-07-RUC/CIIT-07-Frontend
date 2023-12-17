@@ -76,7 +76,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>
   },
   {
-    path: "/SearchPage",
+    path: "/SearchPage/:query",
     element: <SearchPage/>,
     errorElement: <ErrorPage/>
   },
