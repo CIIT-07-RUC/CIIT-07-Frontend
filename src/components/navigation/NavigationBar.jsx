@@ -48,7 +48,9 @@ const routeChangeSearchPage = () =>{
     let path = '/SearchPage';
     navigate(path);
 }
-  
+
+const queryRef = useRef(null)
+const queryHandler = () => navigate(`/SearchPage/${queryRef.current.value}`);
 
 	return (
     <>
@@ -67,8 +69,9 @@ const routeChangeSearchPage = () =>{
                   className="me-2"
                   aria-label="Search"
                 />
+                <input type='text' ref={queryRef} placeholder='Search' />
                 <Button type = "submit" variant="outline-success"
-                  onClick={routeChangeSearchPage}
+                  onClick={queryHandler}
                 >Search</Button>
               </Form>
             </div>
