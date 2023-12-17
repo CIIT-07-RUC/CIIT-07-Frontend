@@ -7,7 +7,7 @@ import { Footer } from '../components/footer/Footer';
 import MovieList from '../components/movieList/MovieList';
 import PersonList from '../components/searchResultsList/PersonList';
 import TitleList from '../components/searchResultsList/TitleList';
-
+import { useParams } from 'react-router';
 
 export function SearchPage(props) {
 
@@ -24,7 +24,8 @@ export function SearchPage(props) {
 		{ id: 4, name: 'Movie 4', image: img1},
 	];
 
-	const mockedSearchQuery = "leonardo";
+	const params = useParams();
+	const searchQuery = params.query;
 	
 	const mockedMovieObj = {
 		items: {
@@ -49,7 +50,7 @@ export function SearchPage(props) {
 		<div className="SearchPageHeader">
 			<Container>
 				<div className="search_page--page-title">
-					<h1>Search: "{mockedSearchQuery}" </h1>
+					<h1>Search: "{searchQuery}" </h1>
 				</div>
 			</Container>
 
