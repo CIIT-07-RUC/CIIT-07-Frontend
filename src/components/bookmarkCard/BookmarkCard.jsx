@@ -3,32 +3,50 @@ import Button from 'react-bootstrap/Button';
 import img1 from '../../assets/images/movie2.jpeg';
 import './index.scss';
 import Accordion from 'react-bootstrap/Accordion';
+import React, {useEffect, useState} from 'react';
+import MovieAPI from '../../apis/MovieAPI';
 
 export function BookmarkCard(props){
+	const bookmark = props.item;
+
+	const [movie, setMovie] = useState([]);
+	const [isMovieLoaded, setIsMovieLoaded] = useState(false);
+
+	const fetchMovie = async () => {
+		try {
+			console.log("bookmark.tConst", bookmark.tConst)
+			const result = await MovieAPI.getById(bookmark.tConst);
+			setMovie(result);
+			setIsMovieLoaded(true);
+			console.log("MOVIE", result)
+		  } catch (e) {
+			console.warn("err:", e);
+		  }
+		
+	}
+	useEffect(() => {
+		fetchMovie()
+	}, []);
+	
+	const addedDate = new Date(bookmark.timestamp).toLocaleDateString('da-DK');
 	return(
 	<>
 	<Card className='card__item mt-3'>
 		<Card.Img 
 		className="card__item--image"
 		variant="top" 
-		src={img1} />
+		src={movie.poster} />
 		<Card.Body className="card__body">
-			<Card.Title className='text-center' >Movie title</Card.Title>
+			<Card.Title className='text-center' >{movie.primaryTitle} </Card.Title>
 			<Card.Text className='text-center' style={{fontStyle: 'italic'}}>
-				Added: 13.12.2099
+				Added: {addedDate}
 			</Card.Text>
 			<Card.Text>
 			<Accordion >
 				<Accordion.Item eventKey="0">
 					<Accordion.Header>Your bookmark comment</Accordion.Header>
 					<Accordion.Body>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-					eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-					minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-					aliquip ex ea commodo consequat. Duis aute irure dolor in
-					reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-					pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-					culpa qui officia deserunt mollit anim id est laborum.
+						{bookmark.bookmarkComment}
 					</Accordion.Body>
 				</Accordion.Item>
 				<Accordion.Item eventKey="1">
@@ -46,7 +64,7 @@ export function BookmarkCard(props){
 				</Accordion.Item>
 			</Accordion>
 			</Card.Text>
-			<Button href='' >Check movie</Button>
+			<Button href={`/movie/${movie.tConst}`} >Check movie</Button>
 		</Card.Body>
 				
 	</Card>
