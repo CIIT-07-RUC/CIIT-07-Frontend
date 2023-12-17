@@ -17,6 +17,7 @@ import { IndexPage } from './pages/IndexPage';
 import './App.scss';
 import AccountPage from './pages/AccontPage';
 import { FullCastPage } from './pages/FullCastPage';
+import { BookmarksPage } from './pages/BookmarksPage';
 const ThemeContext = createContext();
 
 
@@ -89,7 +90,12 @@ const router = createBrowserRouter([
     path: "/fullcast/:castId",
     element: <FullCastPage/>,
     errorElement: <ErrorPage/>
-  }
+  },
+  {
+    path: "/bookmarks",
+    element: <BookmarksPage/>,
+    errorElement: <ErrorPage/>
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
