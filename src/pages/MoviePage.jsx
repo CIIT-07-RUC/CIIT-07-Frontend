@@ -9,6 +9,7 @@ import Comments from '../components/comments/Comments';
 import { MovieAPI } from '../apis/MovieAPI';
 import { CastAPI } from '../apis/CastAPI';
 import { RatingsAPI } from '../apis/RatingsAPI';
+import { BookmarksAPI } from '../apis/BookmarksAPI';
 import movieNotFoundImg from '../assets/images/movie_not_found.jpeg';
 
 export function MoviePage() {
@@ -18,7 +19,8 @@ export function MoviePage() {
   const [ similarMovies, setSimilarMovies ] = useState([]);
   const [ rating, setRating ] = useState(null);
   const { isUserLoggedIn }  = useContext(ThemeContext);
-
+	const { userId, setUserId}  = useContext(ThemeContext);
+  const [bookmarkWasAdded, setBookmarkWasAdded] = useState(false);
   const fetchMovie = async () => {
     try {
       setMovie(await MovieAPI.getById(movieId));
@@ -42,6 +44,24 @@ export function MoviePage() {
     const director = cast.find(person => person.item3.includes('director'));
     return director ? director.item2 : 'no data';
   };
+
+  const addBookmark = async () => {
+    try {
+      const bookmarkObj = {
+        "userId": userId,
+        "tConst": movie.tConst,
+        "nConst": "",
+        "bookmarkComment": "",
+        "timestamp":new Date().toISOString(),
+        "bookmarkId": 0
+      }
+      
+      await BookmarksAPI.create(bookmarkObj);
+      setBookmarkWasAdded(true);
+    } catch (e) {
+      console.warn("err:", e)
+    }
+  }
 
   const rateMovie = async value => {
     try {
@@ -98,6 +118,21 @@ export function MoviePage() {
                 </div>
                 : <div>Log in to submit a rating</div>}
             </Col>
+            <Col>
+                { isUserLoggedIn ? 
+                  <div className='mt-3'>
+                    <Button onClick={addBookmark} variant='dark'>Add to bookmark</Button>
+                  </div>
+                : <div>Log in to save a movie to bookmark</div>
+                }
+                { bookmarkWasAdded ?
+                  <Alert variant='success'>
+                    Bookmark was added
+                  </Alert> 
+                  : null
+                }
+            </Col>
+
           </Row>
         </Col>
       </Row>

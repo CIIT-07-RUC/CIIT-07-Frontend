@@ -24,8 +24,6 @@ export function Login({ showLogin, showRegister, login, register, closeModal }) 
   const [registerSuccesfullMsg, setRegisterSuccesfullMsg] = useState('');
 
   const { isUserLoggedIn, setIsUserLoggedIn } = useContext(ThemeContext);
-console.log("BROO?", isUserLoggedIn )
-
 
   const doLogin = async (e) => {
     e.preventDefault();
