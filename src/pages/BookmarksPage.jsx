@@ -5,12 +5,13 @@ import MovieList from '../components/movieList/MovieList';
 import { Footer } from '../components/footer/Footer';
 import movieNotFoundImg from '../assets/images/movie_not_found.jpeg';
 import { NavigationMain } from '../components/navigation/NavigationMain';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {CastAPI} from '../apis/CastAPI';
 import { MovieAPI } from '../apis/MovieAPI';
 import { CastList } from '../components/castList/CastList';
 import { useHistory ,useLocation } from 'react-router-dom';
 import { BookmarksAPI } from '../apis/BookmarksAPI';
+import { ThemeContext } from '../index';
 
 
 import { BookmarkCard } from '../components/bookmarkCard/BookmarkCard';
@@ -23,6 +24,7 @@ export function BookmarksPage (props) {
 
 	const [areBooksmarksLoaded, setAreBooksmarksLoaded] = useState(false)
 	const location = useLocation();
+	const { isUserLoggedIn, setIsUserLoggedIn } = useContext(ThemeContext);
 
 	const fetchBookmarks = async () => {
 		try {
@@ -38,7 +40,15 @@ export function BookmarksPage (props) {
 
 	useEffect(() => {
 		fetchBookmarks();
-	}, [])
+	}, []);
+
+	if (!isUserLoggedIn) {
+		return (
+		  <div>
+			<p>You need to be logged in to access this page.</p>
+		  </div>
+		);
+	  }
 	
 	return (
 		<>
