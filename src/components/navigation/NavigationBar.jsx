@@ -62,13 +62,6 @@ const queryHandler = () => navigate(`/SearchPage/${queryRef.current.value}`);
           <div className="navigation__content--wrapper align-items-center justify-content-between d-flex w-100">
 
             <div className="search__inner w-100 px-5 d-none d-md-block">
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
                 <input type='text' ref={queryRef} placeholder='Search' />
                 <Button type = "submit" variant="outline-success"
                   onClick={queryHandler}
