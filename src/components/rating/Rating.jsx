@@ -6,10 +6,10 @@ export function Rating({ value, onClick }) {
   const [ currentStar, setCurrentStar ] = useState(null);
   const roundedRating = currentStar || Math.round(value);
   const stars = Array(10).fill(false).fill(true, 0, roundedRating);
-  const clickable = !value && !!onClick;
+  const clickable = !!onClick;
 
   const handleStarClick = index => {
-    if (value || !onClick) return;
+    if (!onClick) return;
     onClick(index);
     setCurrentStar(null);
   };

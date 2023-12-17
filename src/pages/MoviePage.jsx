@@ -5,7 +5,8 @@ import { ThemeContext } from '../index';
 import { NavigationMain } from '../components/navigation/NavigationMain';
 import { Footer } from '../components/footer/Footer';
 import { Rating } from '../components/rating/Rating';
-import Comments from '../components/comments/Comments';
+import { CommentBox } from '../components/comments/CommentBox';
+import { SingleComment } from '../components/comments/SingleComment';
 import { MovieAPI } from '../apis/MovieAPI';
 import { CastAPI } from '../apis/CastAPI';
 import { RatingsAPI } from '../apis/RatingsAPI';
@@ -17,16 +18,26 @@ export function MoviePage() {
   const [ movie, setMovie ] = useState(null);
   const [ cast, setCast ] = useState([]);
   const [ similarMovies, setSimilarMovies ] = useState([]);
+  const [ comments, setComments ] = useState([]);
   const [ rating, setRating ] = useState(null);
   const { isUserLoggedIn }  = useContext(ThemeContext);
 	const { userId, setUserId}  = useContext(ThemeContext);
   const [bookmarkWasAdded, setBookmarkWasAdded] = useState(false);
+
   const fetchMovie = async () => {
     try {
       setMovie(await MovieAPI.getById(movieId));
       setCast(await CastAPI.getAllCast(movieId));
       setSimilarMovies(await MovieAPI.getSimilar(movieId));
+      setComments(await RatingsAPI.getAll(movieId));
+    }
+    catch (e) {
+      console.error(e);
+    }
+  };
 
+  const fetchOwnComment = async () => {
+    try {
       if (isUserLoggedIn) {
         setRating(await RatingsAPI.getOne(movieId));
       }
@@ -34,10 +45,14 @@ export function MoviePage() {
     catch (e) {
       console.error(e);
     }
-  };
+  }
 
   useEffect(() => {
     fetchMovie();
+  }, [movieId]);
+
+  useEffect(() => {
+    fetchOwnComment();
   }, [movieId, isUserLoggedIn]);
 
   const getDirectorName = () => {
@@ -55,7 +70,7 @@ export function MoviePage() {
         "timestamp":new Date().toISOString(),
         "bookmarkId": 0
       }
-      
+
       await BookmarksAPI.create(bookmarkObj);
       setBookmarkWasAdded(true);
     } catch (e) {
@@ -63,21 +78,21 @@ export function MoviePage() {
     }
   }
 
-  const rateMovie = async value => {
+  const submitComment = async (comment, rating) => {
     try {
       await RatingsAPI.create({
         tconst: movieId,
-        rating: value,
-        comment: '',
+        comment,
+        rating,
       });
-      setRating({ rating: value });
+      setRating({ comment, rating });
     }
     catch (e) {
       console.error(e);
     }
   };
 
-  const deleteRating = async () => {
+  const deleteComment = async () => {
     try {
       await RatingsAPI.delete(movieId);
       setRating(null);
@@ -113,13 +128,12 @@ export function MoviePage() {
               {isUserLoggedIn
                 ? <div>
                   <b>Personal rating:</b>
-                  <Rating value={rating ? rating.rating : null} onClick={value => rateMovie(value)}/>
-                  {rating ? <a href="#" onClick={e => {e.preventDefault(); deleteRating()}}>Delete rating</a> : null}
+                  <Rating value={rating ? rating.rating : null} />
                 </div>
                 : <div>Log in to submit a rating</div>}
             </Col>
             <Col>
-                { isUserLoggedIn ? 
+                { isUserLoggedIn ?
                   <div className='mt-3'>
                     <Button onClick={addBookmark} variant='dark'>Add to bookmark</Button>
                   </div>
@@ -128,7 +142,7 @@ export function MoviePage() {
                 { bookmarkWasAdded ?
                   <Alert variant='success'>
                     Bookmark was added
-                  </Alert> 
+                  </Alert>
                   : null
                 }
             </Col>
@@ -155,9 +169,16 @@ export function MoviePage() {
         <Button href={"/fullcast/" + movieId}>Full cast</Button>
       </div>
 
-      <div className="my-5 py-4 bg-light text-center">
-        <h4>Write Comment</h4>
-        <Comments/>
+      <div className="my-5 py-4 bg-light">
+        <h4 className="text-center">Comments</h4>
+        <div className="text-center my-2">My comment</div>
+        {rating
+          ? <SingleComment comment={rating} onDelete={deleteComment}></SingleComment>
+          : <CommentBox onSubmit={submitComment}></CommentBox>}
+        <div className="text-center my-2">All comments</div>
+        {comments.items && comments.items.map((comment, index) => <SingleComment
+          key={"comment-" + index}
+          comment={comment}></SingleComment>)}
       </div>
 
       <div className="my-5 py-4 bg-light text-center">
