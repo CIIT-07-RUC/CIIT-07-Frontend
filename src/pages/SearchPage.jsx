@@ -18,10 +18,10 @@ export function SearchPage(props) {
 		{ id: 4, name: 'Leonardo Dicaprio', proffesion: 'Actor', birthYear: '1974'},
 	];
 	const mockedMovies = [
-		{ id: 1, name: 'Movie 1', image: img1},
-		{ id: 2, name: 'Movie 2', image: img1},
-		{ id: 3, name: 'Movie 3', image: img1},
-		{ id: 4, name: 'Movie 4', image: img1},
+		{ id: 1, name: 'Movie 1', tConst: 'tt4285496', poster: img1, year: '2015'},
+		{ id: 2, name: 'Movie 2', tConst: 'tt4285496', poster: img1, year: '2015'},
+		{ id: 3, name: 'Movie 3', tConst: 'tt4285496', poster: img1, year: '2015'},
+		{ id: 4, name: 'Movie 4', tConst: 'tt4285496', poster: img1, year: '2015'},
 	];
 
 	const params = useParams();
