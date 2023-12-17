@@ -6,12 +6,17 @@ import Accordion from 'react-bootstrap/Accordion';
 import React, {useEffect, useState, useRef} from 'react';
 import MovieAPI from '../../apis/MovieAPI';
 import BookmarksAPI from '../../apis/BookmarksAPI';
+import Form from 'react-bootstrap/Form';
+import { Alert } from 'react-bootstrap';
 
 export function BookmarkCard(props){
 	const bookmark = props.item;
 	const [movie, setMovie] = useState([]);
 	const movieBookmarkRef = useRef(null)
 	const [isMovieLoaded, setIsMovieLoaded] = useState(false);
+	const [bookmarkComment, setBookmarkComment] = useState('');
+	const [commentWasAdded, setCommentWasAdded] = useState(false);
+
 
 	const fetchMovie = async () => {
 		try {
@@ -34,6 +39,27 @@ export function BookmarkCard(props){
 		  }
 
 	}
+
+	const addBookmarkComment = async (e) => {
+		e.preventDefault();
+		try {
+			const bookmarkUpdated = {
+				"userId": bookmark.userId,
+				"tConst": bookmark.tConst,
+				"nConst": bookmark.nConst,
+				"bookmarkComment": bookmarkComment,
+				"timestamp": bookmark.timestamp,
+				"bookmarkId": bookmark.bookmarkId
+			  }
+			await BookmarksAPI.update(bookmark.bookmarkId, bookmarkUpdated);
+			setCommentWasAdded(true);
+		} catch (e) {
+			console.warn("err:", e);
+		}
+
+	}
+
+
 	useEffect(() => {
 		fetchMovie()
 	}, []);
@@ -62,7 +88,20 @@ export function BookmarkCard(props){
 				<Accordion.Item eventKey="1">
 					<Accordion.Header>Add comment to bookmark </Accordion.Header>
 					<Accordion.Body>
-					
+						<Form onSubmit={e => addBookmarkComment(e)}>
+							<Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+								<Form.Label>Write comment to bookmark</Form.Label>
+								<Form.Control as="textarea" onChange={e => setBookmarkComment(e.target.value)} />
+							</Form.Group>
+							<Button type="submit">
+								Submit
+							</Button>
+						</Form>
+						{ commentWasAdded ? 
+							<Alert className='mt-2' variant='success'>
+								Comment was successfully added, please refresh page
+							</Alert>
+						: null}
 					</Accordion.Body>
 				</Accordion.Item>
 				<Accordion.Item eventKey="2">
