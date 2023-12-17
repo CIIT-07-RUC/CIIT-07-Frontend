@@ -66,7 +66,6 @@ const queryHandler = () => navigate(`/SearchPage/${queryRef.current.value}`);
                 <Button type = "submit" variant="outline-success"
                   onClick={queryHandler}
                 >Search</Button>
-              </Form>
             </div>
 
             <Nav
