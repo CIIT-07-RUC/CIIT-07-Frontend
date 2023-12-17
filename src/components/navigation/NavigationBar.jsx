@@ -1,7 +1,7 @@
 import './index.scss';
 
 import { useContext } from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { List, Bookmark, Gear } from 'react-bootstrap-icons';
 
 import Button from 'react-bootstrap/Button';
