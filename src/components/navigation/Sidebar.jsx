@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {  Bookmark, Gear } from 'react-bootstrap-icons';
 import { useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
-
+import './index.scss';
 
 
 export function Sidebar(props) {
@@ -16,15 +16,15 @@ export function Sidebar(props) {
 				<Offcanvas.Title>ImdbCheapClone Sidebar</Offcanvas.Title>
 				</Offcanvas.Header>
 				<Offcanvas.Body>
-				<Nav className="flex-column">
-				<Link to="/account">
-					<Gear />
-					<span style={{marginLeft: '10px' }}> Account </span>
-				</Link>
-				<Link to="/bookmarks" href="#Bookmark">
-					<Bookmark/>
-					<span style={{marginLeft: '10px' }}> Bookmark </span>
-				</Link>
+				<Nav className="flex-column gap-2 sidebar__component">
+					<Link to="/account">
+						<Gear />
+						<span style={{marginLeft: '10px' }}> Account </span>
+					</Link>
+					<Link to="/bookmarks" href="#Bookmark">
+						<Bookmark/>
+						<span style={{marginLeft: '10px' }}> Bookmark </span>
+					</Link>
 				</Nav>
 				</Offcanvas.Body>
       		</Offcanvas>
