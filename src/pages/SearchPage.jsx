@@ -7,15 +7,6 @@ import { useState, useEffect } from 'react';
 
 export function SearchPage(props) {
 
-	const mockedPersons = [
-		{ nconst: 'nm10438665', primaryname: 'Akash', birthyear:'', deathyear:'', primaryprofession: 'actor', knownfortitles: 'tt9680520'},
-		{ nconst: 'nm10438665', primaryname: 'Akash', birthyear:'', deathyear:'', primaryprofession: 'actor', knownfortitles: 'tt9680520'},
-	];
-	const mockedMovies = [
-		{tConst: 'tt4285496', primaryTitle: 'Akash',  poster: '', startYear: '2005', averageRating: '8.9'},
-		{tConst: 'tt4285496', primaryTitle: 'Akash',  poster: '', startYear: '2005', averageRating: '8.9'},
-	];
-
 	const params = useParams();
 	const searchQuery = params.query;
 	const [ titleResults, setTitleResults] = useState([]);
