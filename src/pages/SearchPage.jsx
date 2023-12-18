@@ -8,6 +8,8 @@ import MovieList from '../components/movieList/MovieList';
 import PersonList from '../components/searchResultsList/PersonList';
 import TitleList from '../components/searchResultsList/TitleList';
 import { useParams } from 'react-router';
+import { SearchAPI } from '../apis/SearchAPI';
+import { useState, useEffect } from 'react';
 
 export function SearchPage(props) {
 
@@ -18,31 +20,39 @@ export function SearchPage(props) {
 		{ id: 4, name: 'Leonardo Dicaprio', proffesion: 'Actor', birthYear: '1974'},
 	];
 	const mockedMovies = [
-		{ id: 1, name: 'Movie 1', tConst: 'tt4285496', poster: img1, year: '2015'},
-		{ id: 2, name: 'Movie 2', tConst: 'tt4285496', poster: img1, year: '2015'},
-		{ id: 3, name: 'Movie 3', tConst: 'tt4285496', poster: img1, year: '2015'},
-		{ id: 4, name: 'Movie 4', tConst: 'tt4285496', poster: img1, year: '2015'},
+		{ id: 1, primaryTitle: 'Movie 1', tConst: 'tt4285496', poster: img1, StartYear: '2015'},
+		{ id: 2, primaryTitle: 'Movie 2', tConst: 'tt4285496', poster: img1, StartYear: '2015'},
+		{ id: 3, primaryTitle: 'Movie 3', tConst: 'tt4285496', poster: img1, StartYear: '2015'},
+	
 	];
 
 	const params = useParams();
 	const searchQuery = params.query;
-	
-	const mockedMovieObj = {
-		items: {
-			img: [img1],
-			title: ["Title 1"],
-			year: ["year"],
-			description: ["Lorem ipsum dolor sit amet1"]
-		}
-	}
 
-	const mockedPersonObj = {
-		items: {
-			name: ["Leonardo DiCaprio"],
-			proffesion: ["Actor"],
-			birthYear: ["1974"]
+	let personsArr = [];
+	let titlesArr = [];
+	const [ titles, setTitles ] = useState([]);
+	const [ persons, setPersons ] = useState([]);
+	
+	const fetchResults = async () => {
+		try {
+			const titleResultsData = (
+				titlesArr.map(async (movie) => {
+				  const titles = await SearchAPI.searchByTitle(movie);
+				  return titles;
+				})
+			);
+
+			setTitles([titleResultsData]);
+
+		} catch (e) {
+		  console.error(e);
 		}
-	}
+	  };
+	  
+	  useEffect(() => {
+		fetchResults();
+	  });
 
 	return (	
 		<>
@@ -58,7 +68,7 @@ export function SearchPage(props) {
 			<Container>
 				<div className="search__page--title-results bg-light">
 					<h1>Titles: </h1>
-					<TitleList movies={mockedMovies} />
+					<TitleList movies={titles} />
 				</div>
 			</Container>
 		</div>
