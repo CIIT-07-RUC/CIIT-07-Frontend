@@ -13,11 +13,11 @@ const TitleList = (props) => {
       
       <Col>
         {props.movies.map((movie) => (
-          <Col key={movie.id} sm={5} md={3}> 
+          <Col key={movie.tConst} sm={5} md={3}> 
             <Card>
               <Card.Body>
-                <Card.Title>{movie.name}  </Card.Title>
-                <Card.Text /> {movie.year} <Card.Text/>
+                <Card.Title>{movie.primaryTitle}  </Card.Title>
+                <Card.Text /> {movie.startYear} <Card.Text/>
                 <Card.Img  src={movie.poster} className="poster-picture"/>
                 <Button href={`/movie/${movie.tConst}`} >Check movie</Button>
               </Card.Body>
